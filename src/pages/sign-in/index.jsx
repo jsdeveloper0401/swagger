@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import SnackbarWithDecorators from "../../components/notification";
+import "./login.css";
 import {
     Card,
     CardHeader,
@@ -24,33 +25,32 @@ const Login = () => {
         setForm({ ...form, [name]: value });
     };
 
-      const handleSubmit = (e) => {
-          e.preventDefault();
-          const { username, password } = form;
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const { username, password } = form;
 
-          if (
-              !username ||
-              !password ||
-              username.trim() === "" ||
-              password.trim() === ""
-          ) {
-              setType("error");
-              setOpen(true);
-              return;
-          }
+        if (
+            !username ||
+            !password ||
+            username.trim() === "" ||
+            password.trim() === ""
+        ) {
+            setType("error");
+            setOpen(true);
+            return;
+        }
 
-          if (username === "admin" && password === "123") {
-              setType("success");
-              setOpen(true);
-              setTimeout(() => {
-                  navigate("/main");
-              }, 1500);
-          } else {
-              setType("error");
-              setOpen(true);
-          }
-      };
-
+        if (username === "admin" && password === "123") {
+            setType("success");
+            setOpen(true);
+            setTimeout(() => {
+                navigate("/main");
+            }, 1500);
+        } else {
+            setType("error");
+            setOpen(true);
+        }
+    };
 
     const moveRegister = () => {
         navigate("sign-up");
