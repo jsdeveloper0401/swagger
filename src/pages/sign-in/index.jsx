@@ -2,44 +2,77 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import SnackbarWithDecorators from "../../components/notification";
+import {
+    Card,
+    CardHeader,
+    CardContent,
+    CardActions,
+    Button,
+    Container,
+    Grid,
+    Typography,
+} from "@mui/material";
+
 const Login = () => {
     const [form, setForm] = useState({});
     const [open, setOpen] = useState(false);
     const [type, setType] = useState("");
     const navigate = useNavigate();
-    
+
     const handleChange = (event) => {
         const { value, name } = event.target;
         setForm({ ...form, [name]: value });
     };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const { username, password } = form;
-        if (username === "admin" && password === "123") {
-            setOpen(true);
-            setType("success");
-            setTimeout(() => {
-                navigate("/main");
-            }, 1500);
-        } else {
-            setOpen(true);
-            setType("danger");
-        }
-    };
 
-    const moveRergister = () => {
+      const handleSubmit = (e) => {
+          e.preventDefault();
+          const { username, password } = form;
+
+          if (
+              !username ||
+              !password ||
+              username.trim() === "" ||
+              password.trim() === ""
+          ) {
+              setType("error");
+              setOpen(true);
+              return;
+          }
+
+          if (username === "admin" && password === "123") {
+              setType("success");
+              setOpen(true);
+              setTimeout(() => {
+                  navigate("/main");
+              }, 1500);
+          } else {
+              setType("error");
+              setOpen(true);
+          }
+      };
+
+
+    const moveRegister = () => {
         navigate("sign-up");
     };
+
     return (
-        <div className="container">
+        <Container>
             <SnackbarWithDecorators open={open} setOpen={setOpen} type={type} />
-            <div className="row mt-2">
-                <div className="col-md-6 offset-3">
-                    <div className="card">
-                        <div className="card-header">
-                            <h1 className="text-center">Login</h1>
-                        </div>
-                        <div className="card-body">
+            <Grid container justifyContent="center" mt={9}>
+                <Grid item xs={12} md={6}>
+                    <Card>
+                        <CardHeader
+                            title={
+                                <Typography
+                                    variant="h4"
+                                    component="h1"
+                                    align="center">
+                                    Login
+                                </Typography>
+                            }
+                        />
+                        <CardContent>
                             <form id="submit" onSubmit={handleSubmit}>
                                 <TextField
                                     fullWidth
@@ -48,7 +81,7 @@ const Login = () => {
                                     onChange={handleChange}
                                     type="text"
                                     id="username"
-                                    className="my-2"
+                                    margin="normal"
                                 />
                                 <TextField
                                     fullWidth
@@ -57,23 +90,35 @@ const Login = () => {
                                     onChange={handleChange}
                                     type="password"
                                     id="password"
-                                    className="my-2"
+                                    margin="normal"
                                 />
-                                <p className="text-decoration-underline cursor-pointer" onClick={moveRergister}>Register</p>
+                                <Typography
+                                    variant="body2"
+                                    className="text-decoration-underline cursor-pointer"
+                                    onClick={moveRegister}
+                                    marginTop={1}
+                                    fontWeight={500}
+                                    sx={{
+                                        cursor: "pointer",
+                                        textDecoration: "underline",
+                                    }}>
+                                    Register
+                                </Typography>
                             </form>
-                        </div>
-                        <div className="card-footer">
-                            <button
+                        </CardContent>
+                        <CardActions>
+                            <Button
                                 type="submit"
                                 form="submit"
-                                className="btn btn-success">
-                                login
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                variant="contained"
+                                color="primary">
+                                Login
+                            </Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 

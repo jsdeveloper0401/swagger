@@ -1,5 +1,15 @@
-import { TextField } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
+import {
+    TextField,
+    Box,
+    Typography,
+    Button,
+    Container,
+    Grid,
+    Card,
+    CardContent,
+    CardHeader,
+} from "@mui/material";
 import { auth } from "@service";
 import VerifyModal from "../../components/verify-modal";
 
@@ -37,14 +47,21 @@ const Index = () => {
     return (
         <>
             <VerifyModal open={modal} toggle={toggleModal} />
-            <div className="container">
-                <div className="row mt-2">
-                    <div className="col-md-6 offset-3">
-                        <div className="card">
-                            <div className="card-header">
-                                <h1 className="text-center">Sign-Up</h1>
-                            </div>
-                            <div className="card-body">
+            <Container>
+                <Grid container justifyContent="center" mt={2}>
+                    <Grid item xs={12} md={6}>
+                        <Card>
+                            <CardHeader
+                                title={
+                                    <Typography
+                                        variant="h4"
+                                        component="h1"
+                                        align="center">
+                                        Sign-Up
+                                    </Typography>
+                                }
+                            />
+                            <CardContent>
                                 <form id="submit" onSubmit={handleSubmit}>
                                     <TextField
                                         fullWidth
@@ -55,16 +72,18 @@ const Index = () => {
                                         type="text"
                                         id="email"
                                         className="my-2"
+                                        margin="normal"
                                     />
                                     <TextField
                                         fullWidth
-                                        label="Fullname"
+                                        label="Full Name"
                                         name="full_name"
                                         value={form.full_name}
                                         onChange={handleChange}
                                         type="text"
                                         id="full_name"
                                         className="my-2"
+                                        margin="normal"
                                     />
                                     <TextField
                                         fullWidth
@@ -75,29 +94,34 @@ const Index = () => {
                                         type="password"
                                         id="password"
                                         className="my-2"
+                                        margin="normal"
                                     />
                                     <TextField
                                         fullWidth
-                                        label="Phone number"
+                                        label="Phone Number"
                                         name="phone_number"
                                         value={form.phone_number}
                                         onChange={handleChange}
                                         type="text"
                                         id="phone_number"
                                         className="my-2"
+                                        margin="normal"
                                     />
-                                    <button
-                                        type="submit"
-                                        form="submit"
-                                        className="btn btn-success">
-                                        Sign Up
-                                    </button>
+                                    <Box mt={2} display="flex">
+                                        <Button
+                                            type="submit"
+                                            form="submit"
+                                            variant="contained"
+                                            color="primary">
+                                            Sign Up
+                                        </Button>
+                                    </Box>
                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Container>
         </>
     );
 };
